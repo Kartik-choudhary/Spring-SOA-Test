@@ -5,7 +5,7 @@ trigger UpdateCount on Contact (after insert,after update,after delete,after und
     
     if(trigger.isInsert || trigger.isUnDelete){  
         for(Contact con : trigger.new) {
-            if(con.AccountId!=null){
+            if(con.AccountId!=NULL){
                 accLst.add(con.AccountId);
             }           
         }
@@ -16,6 +16,9 @@ trigger UpdateCount on Contact (after insert,after update,after delete,after und
         for(Contact con : trigger.new) {           
             if(con.AccountId!=trigger.oldMap.get(con.Id).AccountId && con.AccountId!=NULL){
                 accLst.add(con.AccountId);
+                if(trigger.oldMap.get(con.Id).AccountId!=NULL){
+                    accLst.add(con.AccountId);
+                }
             }                
         }
         UpdateCountHelper.countUpdate(accLst);
@@ -23,7 +26,7 @@ trigger UpdateCount on Contact (after insert,after update,after delete,after und
     
     else if(trigger.isDelete){    
         for(Contact con : trigger.old) {
-            if(con.AccountId!=null){
+            if(con.AccountId!=NULL){
                 accLst.add(con.AccountId);
             }
         }
